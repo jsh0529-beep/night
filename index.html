@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>새벽의 스무 문제 — 마음을 어루만지는 밤</title>
+<meta name="description" content="자다가 갑자기 불안이 밀려올 때, 정답도 오답도 없는 스무 개의 다정한 질문을 따라가며 다시 잠들 수 있게 돕는 야간 진정 프로그램.">
+<meta property="og:title" content="새벽의 스무 문제 🌙">
+<meta property="og:description" content="새벽에 갑자기 깬 당신에게. 어떤 답을 골라도 위로가 도착하는 스무 개의 질문.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#181512; --card:#211D19; --line:#332C25;
+  --ink:#EDE4D3; --sub:#9C907C; --amber:#C9975B; --amber-dim:#8A6A42;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:var(--bg)}
+body{background:var(--bg);color:var(--ink);font-family:'Noto Sans KR',sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased}
+.wrap{max-width:540px;margin:0 auto;padding:30px 20px 70px}
+h1,h2,.serif{font-family:'Gowun Batang',serif}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:30px 24px}
+button{font-family:inherit;cursor:pointer;border:none}
+.btn{display:block;width:100%;padding:17px;border-radius:14px;background:var(--amber);color:#221A10;font-size:16px;font-weight:700;transition:opacity .15s}
+.btn:active{opacity:.85}
+.btn.ghost{background:transparent;color:var(--sub);border:1px solid var(--line);font-weight:500}
+.hidden{display:none}
+.eyebrow{font-size:11.5px;letter-spacing:.2em;color:var(--amber);font-weight:700;text-align:center;margin-bottom:12px}
+
+/* ---- intro ---- */
+.moon{font-size:44px;text-align:center;margin-bottom:10px;filter:drop-shadow(0 0 18px rgba(201,151,91,.35))}
+#intro h1{font-size:27px;line-height:1.45;text-align:center;margin-bottom:16px}
+#intro .lead{text-align:center;color:var(--sub);font-size:14.5px;margin-bottom:24px}
+.calm-note{background:#26211B;border:1px solid var(--line);border-radius:14px;padding:16px 18px;font-size:13.5px;color:var(--ink);margin-bottom:14px}
+.calm-note b{color:var(--amber)}
+.disclaim{font-size:12px;color:var(--sub);margin:14px 2px 22px;line-height:1.7}
+
+/* ---- quiz ---- */
+.top{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:var(--sub);margin-bottom:8px}
+.bar{height:4px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:30px}
+.bar i{display:block;height:100%;background:var(--amber-dim);border-radius:99px;transition:width .4s ease}
+.qtext{font-family:'Gowun Batang',serif;font-size:21px;font-weight:700;line-height:1.6;min-height:96px;margin-bottom:24px}
+.opts{display:grid;gap:12px}
+.opt{width:100%;padding:16px;border-radius:14px;background:#26211B;border:1.5px solid var(--line);font-size:15.5px;color:var(--ink);transition:border-color .15s;text-align:center;line-height:1.5}
+.opt:active{border-color:var(--amber)}
+.opt.chosen{border-color:var(--amber);background:#2B241C}
+.feedback{min-height:84px;margin-top:20px;text-align:center;font-size:14.5px;color:var(--sub);opacity:0;transition:opacity .5s}
+.feedback.on{opacity:1;color:var(--ink);font-family:'Gowun Batang',serif;line-height:1.8}
+.nextrow{margin-top:14px}
+.nextrow .btn{padding:14px;font-size:15px}
+
+/* ---- breathing break ---- */
+.breathe-wrap{text-align:center;padding:14px 0 6px}
+.circle{width:130px;height:130px;margin:22px auto;border-radius:50%;background:radial-gradient(circle at 40% 35%, #E0B57E, var(--amber-dim));opacity:.75;animation:br 10s ease-in-out infinite}
+@keyframes br{0%,100%{transform:scale(.7);opacity:.5}40%{transform:scale(1);opacity:.85}60%{transform:scale(1);opacity:.85}}
+@media (prefers-reduced-motion: reduce){.circle{animation:none}}
+.br-guide{font-family:'Gowun Batang',serif;font-size:18px;margin-bottom:6px}
+.br-sub{font-size:13px;color:var(--sub);margin-bottom:24px}
+
+/* ---- end ---- */
+.end-hero{text-align:center;margin-bottom:6px}
+.end-hero .moon{font-size:40px}
+#end h2{font-size:23px;text-align:center;margin-bottom:12px}
+.end-lead{text-align:center;color:var(--sub);font-size:14px;margin-bottom:24px}
+.tip{background:#26211B;border:1px solid var(--line);border-radius:14px;padding:15px 17px;font-size:13.5px;margin-bottom:10px}
+.tip b{display:block;color:var(--amber);margin-bottom:3px;font-size:14px}
+.help{border:1px solid var(--amber-dim);border-radius:14px;padding:14px 17px;font-size:12.5px;color:var(--sub);margin-top:16px}
+.help b{color:var(--ink)}
+.actions{display:grid;gap:10px;margin-top:26px}
+
+/* ---- book banners ---- */
+.books{margin-top:44px}
+.books .head{text-align:center;font-size:11px;letter-spacing:.2em;color:var(--sub);margin-bottom:14px}
+.bk{display:flex;gap:16px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;margin-bottom:12px;text-decoration:none;color:var(--ink)}
+.bk:active{opacity:.9}
+.cover{flex:0 0 72px;height:102px;border-radius:6px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:8px;box-shadow:2px 3px 10px rgba(0,0,0,.45)}
+.cover .ct{font-family:'Gowun Batang',serif;font-weight:700;font-size:13px;line-height:1.3}
+.cover .ca{font-size:9px;margin-top:5px;opacity:.85}
+.cover.ms{background:#1B2A4A;color:#F0EADB}
+.cover.ml{background:#EFE7D4;color:#2A2318}
+.bk .bt{flex:1}
+.bk .bt .name{font-family:'Gowun Batang',serif;font-weight:700;font-size:15.5px;margin-bottom:4px}
+.bk .bt .copy{font-size:12px;color:var(--sub);line-height:1.6;margin-bottom:8px}
+.bk .bt .go{display:inline-block;font-size:12px;font-weight:700;color:#221A10;background:var(--amber);padding:6px 12px;border-radius:99px}
+.foot{text-align:center;font-size:11px;color:var(--sub);margin-top:26px;line-height:1.7}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ================= INTRO ================= -->
+  <section id="intro">
+    <div class="card">
+      <div class="moon">🌙</div>
+      <div class="eyebrow">NIGHT CALM · 새벽의 스무 문제</div>
+      <h1>갑자기 깨어난 마음,<br>천천히 어루만져 볼까요</h1>
+      <p class="lead">지금 느끼는 불안은 몸의 경보일 뿐,<br>위험하지 않고 반드시 지나갑니다.</p>
+      <div class="calm-note">
+        여기엔 <b>정답도 오답도 없어요.</b> 마음이 가는 답을 고르면, 그때마다 <b>위로 한 줄</b>이 도착합니다. 스무 개의 질문을 따라 걷다 보면 마음이 조금씩 가라앉을 거예요.<br><br>
+        중간에 두 번, 함께 <b>숨을 고르는 시간</b>이 있어요. 100개의 질문 중에서 매번 다르게 뽑으니 여러 밤 함께할 수 있습니다.
+      </div>
+      <p class="disclaim">※ 화면을 가장 어둡게 낮추고, 편한 자세로 시작하세요. 이 프로그램은 의학적 치료를 대체하지 않으며, 가슴 통증 등 몸의 이상이 의심되면 119에 연락하세요.</p>
+      <button class="btn" onclick="startQuiz()">천천히 시작하기</button>
+    </div>
+  </section>
+
+  <!-- ================= QUIZ ================= -->
+  <section id="quiz" class="hidden">
+    <div class="card">
+      <div class="top"><span id="pnum">1 / 20</span><span>서두르지 않아도 괜찮아요</span></div>
+      <div class="bar"><i id="pbar" style="width:0%"></i></div>
+      <div class="qtext" id="qtext"></div>
+      <div class="opts" id="opts"></div>
+      <div class="feedback" id="fb"></div>
+      <div class="nextrow hidden" id="nextrow"><button class="btn" onclick="next()">다음 질문 →</button></div>
+    </div>
+  </section>
+
+  <!-- ================= BREATHING BREAK ================= -->
+  <section id="breath" class="hidden">
+    <div class="card breathe-wrap">
+      <div class="eyebrow">잠깐, 숨 고르기</div>
+      <div class="circle" aria-hidden="true"></div>
+      <div class="br-guide serif">원이 커질 때 4초 들이쉬고,<br>작아질 때 6초 내쉬어요</div>
+      <div class="br-sub">어깨의 힘을 살짝 풀어 보세요. 세 번이면 충분합니다.</div>
+      <button class="btn" onclick="resumeQuiz()">이어서 풀기</button>
+    </div>
+  </section>
+
+  <!-- ================= END ================= -->
+  <section id="end" class="hidden">
+    <div class="card">
+      <div class="end-hero"><div class="moon">🌌</div></div>
+      <h2 class="serif">스무 개의 위로, 잘 받았어요</h2>
+      <p class="end-lead">몸의 경보는 보통 20~30분 안에 잦아듭니다.<br>지금쯤 아까보다 조금은 가라앉았을 거예요.</p>
+
+      <div class="tip"><b>🛏 다시 누울 때</b>이불에 몸이 닿는 느낌, 방의 소리, 숨이 드나드는 감각에만 가만히 주의를 두세요. '자야 한다'는 목표는 내려놓고 '쉬고 있다'고만 생각해도 충분합니다.</div>
+      <div class="tip"><b>📝 걱정이 다시 올라오면</b>머리맡 종이에 단어 몇 개로만 적어 두세요. "내일의 나에게 맡긴다"고 적는 순간, 뇌는 그 걱정을 붙들고 있을 이유가 줄어듭니다.</div>
+      <div class="tip"><b>🚶 20분이 지나도 말똥말똥하면</b>침대에서 나와 어두운 조명 아래 지루한 일(쉬운 책, 스트레칭)을 잠깐 하다가 졸음이 올 때 돌아오세요. 침대는 '잠드는 곳'으로만 남겨 두는 게 좋습니다.</div>
+
+      <div class="help"><b>이런 밤이 자주 반복된다면</b> — 그것은 의지의 문제가 아니라 도움이 필요하다는 신호입니다. 정신건강의학과 상담을 권하며, 지금 당장 이야기할 사람이 필요하면 <b>정신건강 위기상담 1577-0199</b>(24시간)로 전화할 수 있어요.</div>
+
+      <div class="actions">
+        <button class="btn" onclick="startQuiz()">스무 문제 더 풀기</button>
+        <button class="btn ghost" onclick="location.reload()">처음 화면으로</button>
+      </div>
+    </div>
+
+    <!-- ---- 도서 배너 ---- -->
+    <div class="books">
+      <div class="head">─ 잠 안 오는 밤, 곁에 두면 좋은 책 ─</div>
+
+      <a class="bk" href="https://www.yes24.com/product/goods/191222385" target="_blank" rel="noopener">
+        <div class="cover ml"><div class="ct">돈의<br>언어</div><div class="ca">장성혁 지음</div></div>
+        <div class="bt">
+          <div class="name">국영수보다 먼저 가르쳐야 할 돈의 언어</div>
+          <div class="copy">새벽 불안의 단골손님은 돈 걱정. 아이와 나에게 돈을 대하는 단단한 언어를 만들어 주는 자본주의 생존 수업.</div>
+          <span class="go">YES24에서 보기 →</span>
+        </div>
+      </a>
+
+      <a class="bk" href="https://www.yes24.com/product/goods/178126392" target="_blank" rel="noopener">
+        <div class="cover ms"><div class="ct">미디어<br>시프트</div><div class="ca">장성혁 지음</div></div>
+        <div class="bt">
+          <div class="name">미디어 시프트</div>
+          <div class="copy">일과 업의 미래가 불안한 밤에. 격변기 미디어의 생존 전략과 수익 모델을 담은 실전 가이드.</div>
+          <span class="go">YES24에서 보기 →</span>
+        </div>
+      </a>
+
+      <div class="foot">ⓒ 새벽의 스무 문제 · 자가 진정용 프로그램이며 의학적 진단·치료를 대체하지 않습니다.</div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+/* ===== 100문항 은행 =====
+   정답·오답 없음. 어떤 보기를 골라도 그 질문의 위로(m)가 도착한다.
+   q: 질문 / o: 다정한 보기 3개 / m: 위로 한 줄 */
+const BANK = [
+/* --- 포근한 장면 (20) --- */
+{q:"벚꽃잎은 어떤 모습으로 내려올까요?",o:["눈송이처럼 천천히","깃털처럼 사뿐히","비눗방울처럼 두둥실"],m:"벚꽃잎은 1초에 겨우 5cm씩, 세상에서 가장 느린 눈처럼 내려와요. 서두르지 않아도 되는 일이 세상엔 참 많답니다."},
+{q:"새벽에 눈이 소복소복 내리면 세상은?",o:["더 조용해진다","더 하얘진다","더 포근해 보인다"],m:"셋 다 맞아요. 눈은 소리를 품어 주어서, 눈 오는 밤은 유난히 고요해요. 지금 이 고요도 그런 포근한 고요라고 생각해 보세요."},
+{q:"타닥타닥, 모닥불 앞에 앉으면 마음은?",o:["느긋해진다","몽글몽글해진다","따뜻해진다"],m:"불멍이 마음을 가라앉힌다는 건 과학으로도 확인된 사실이에요. 눈을 감고 일렁이는 주황빛을 가만히 떠올려 보세요."},
+{q:"겨울날 할머니 집 아랫목은 어떤 느낌일까요?",o:["뜨끈뜨끈","포근포근","노곤노곤"],m:"몸 어딘가가 따뜻해지면 마음도 함께 데워져요. 지금 이불을 턱까지 살짝 끌어올려 볼까요."},
+{q:"강아지가 배를 보이고 발라당 눕는 건?",o:["마음이 놓여서","꿈나라에 가고 싶어서","쓰다듬어 달라고"],m:"모두 맞는 답이에요. 가장 무방비한 자세는 가장 안심한 자세이기도 해요. 당신 곁에서도 누군가는 그렇게 마음을 놓습니다."},
+{q:"이불 속에서 듣는 빗소리는 밤을 어떻게 바꿀까요?",o:["더 아늑하게","더 나른하게","더 다정하게"],m:"빗소리는 뇌를 쉬게 하는 백색소음이에요. 오늘 밤엔 상상 속 처마 밑 빗소리를 조용히 틀어 두세요."},
+{q:"바람 한 점 없는 밤, 잔잔한 호수에는 무엇이 비칠까요?",o:["둥근 달","반짝이는 별","밤하늘 전부"],m:"물결이 잔잔하면 달도 별도 온 하늘도 담겨요. 마음이 잔잔해지면, 좋은 것들이 다시 비치기 시작합니다."},
+{q:"한여름, 커다란 나무 그늘에 들어서면?",o:["한결 시원해진다","마음이 놓인다","쉬어 가고 싶어진다"],m:"나무 그늘은 바깥보다 5도나 낮아요. 세상에는 아무 대가 없이 쉼을 내어 주는 것들이 있습니다."},
+{q:"갓 구운 붕어빵을 두 손에 쥐면?",o:["손이 따뜻해진다","마음이 든든해진다","괜히 웃음이 난다"],m:"작고 따뜻한 것 하나면 겨울 골목도 견딜 만해져요. 오늘의 당신에게도 그런 온기 하나를 쥐여 주세요."},
+{q:"해변에 밀려온 파도는 그다음 어떻게 될까요?",o:["다시 바다로 돌아간다","잔잔하게 스러진다","모래를 어루만지고 물러간다"],m:"어떤 파도도 해변에 머물지 않아요. 지금의 불안도 파도처럼, 반드시 물러갑니다."},
+{q:"저녁노을이 물든 하늘은 어떤 빛일까요?",o:["따뜻한 주황빛","수줍은 분홍빛","은은한 보랏빛"],m:"노을은 매일 다른 빛으로 물들지만 늘 곱습니다. 저무는 시간에도 아름다운 것이 있어요."},
+{q:"봄비가 그친 뒤 공기에서 나는 것은?",o:["촉촉한 흙내음","맑은 풀잎 냄새","씻긴 하늘 냄새"],m:"비 갠 뒤 흙냄새에는 '페트리코'라는 예쁜 이름도 있어요. 지나간 비는 향기를 남깁니다. 지나간 눈물도 그래요."},
+{q:"어릴 적 이불로 만든 요새 안은 어땠나요?",o:["아늑했다","비밀스러웠다","안전했다"],m:"그 작은 요새 안에서 안전했던 아이가 지금의 당신 안에 그대로 있어요. 오늘 밤엔 이불이 그 요새가 되어 줄 거예요."},
+{q:"첫눈이 내리는 걸 본 사람들은?",o:["저도 모르게 미소 짓는다","하늘을 올려다본다","누군가에게 알리고 싶어진다"],m:"어른도 첫눈 앞에서는 잠깐 아이가 돼요. 당신 안에도 그 말랑한 마음이 그대로 살아 있습니다."},
+{q:"따뜻한 온천물에 어깨까지 몸을 담그면?",o:["스르르 풀린다","노곤노곤해진다","한숨이 놓인다"],m:"따뜻한 물은 굳은 몸을 풀어 줘요. 지금은 상상만으로도 좋아요. 김이 모락모락 피어오르는 물을 떠올려 보세요."},
+{q:"새벽 골목을 지키는 가로등의 빛은?",o:["은은하다","다정하다","묵묵하다"],m:"이 시간에도 세상 어딘가의 불빛은 조용히 켜져 있어요. 잠 못 드는 밤에도 당신은 혼자가 아닙니다."},
+{q:"겨울밤, 이불 속에서 까먹는 귤은?",o:["새콤달콤한 맛","겨울의 맛","소소한 행복의 맛"],m:"행복은 자주 이렇게 작아요. 귤 한 알, 이불 한 채, 무사한 하루. 오늘 당신에게도 이미 몇 개는 있었을 거예요."},
+{q:"오래된 책방에 들어서면 나는 냄새는?",o:["오래된 종이 냄새","시간의 냄새","이야기의 냄새"],m:"시간을 견딘 것들은 저마다의 향을 갖게 돼요. 그렇게 깊어집니다. 당신도요."},
+{q:"느리고 잔잔한 음악을 들으면 숨은?",o:["느려지고 깊어진다","고요해진다","부드러워진다"],m:"심장은 음악의 느린 박자를 조용히 따라가요. 좋아하는 잔잔한 곡 하나를 아주 작게 틀어 두어도 좋겠어요."},
+{q:"어릴 적 소풍 전날 밤의 콩닥거림, 그 이름은?",o:["설렘","기대","기다림"],m:"설렘과 불안은 몸에서 아주 비슷하게 느껴져요. 지금의 두근거림에도 '설렘'이라는 이름을 살짝 빌려줘 보세요."},
+/* --- 안심되는 자연 이야기 (20) --- */
+{q:"고양이의 골골 소리는 사람에게 무엇을 해 줄까요?",o:["마음을 가라앉혀 준다","스르르 잠들게 해 준다","미소 짓게 해 준다"],m:"고양이의 그르렁 주파수는 사람의 긴장을 낮춰 준다고 알려져 있어요. 무릎 위 고양이의 온기를 상상해 보세요."},
+{q:"숲속 나무들은 뿌리로 이어져 무엇을 할까요?",o:["서로 양분을 나눈다","서로 안부를 전한다","서로 기대어 자란다"],m:"숲은 아프고 약한 나무에게 양분을 보내 줘요. 세상은 생각보다 서로를 돌보며 서 있습니다."},
+{q:"달이 수십억 년째 지구에게 보여 주는 것은?",o:["언제나 같은 얼굴","변함없는 자리","한결같은 빛"],m:"달은 늘 같은 얼굴로 같은 자리에 있어요. 변하지 않고 곁에 있어 주는 것들이 있다는 건 참 다행한 일이에요."},
+{q:"어린 해바라기는 하루 종일 무엇을 바라볼까요?",o:["해","빛","환한 쪽"],m:"어린 해바라기는 하루 종일 해를 따라 고개를 돌려요. 밝은 쪽을 바라보는 일은 연습이 되는 일이랍니다."},
+{q:"남극의 펭귄들은 혹한을 어떻게 견딜까요?",o:["서로 몸을 붙여 둥글게 모인다","번갈아 바람을 막아 준다","꼭 붙어 온기를 나눈다"],m:"셋 다 정답이에요. 바깥쪽과 안쪽 펭귄이 계속 자리를 바꿔 가며 서로를 지켜요. 견디는 일은 혼자 하는 게 아닙니다."},
+{q:"수달은 물 위에서 잠들 때 어떻게 할까요?",o:["서로 손을 잡는다","해초를 이불처럼 두른다","가족끼리 둥둥 모여 잔다"],m:"놀랍게도 셋 다 해요. 자면서도 서로를 놓지 않는 동물이 있답니다. 오늘 밤엔 손 잡고 떠 있는 수달들을 떠올려 보세요."},
+{q:"당신의 심장은 오늘 하루 얼마나 뛰었을까요?",o:["약 10만 번","셀 수 없이 많이","쉬지 않고 꾸준히"],m:"하루 약 10만 번. 당신이 걱정하는 동안에도 심장은 묵묵히 당신 편에서 일하고 있었어요. 몸은 늘 당신 편입니다."},
+{q:"살짝 긁힌 상처는 시간이 지나면?",o:["저절로 아문다","새살이 돋는다","시간이 낫게 해 준다"],m:"몸은 태어날 때부터 회복하는 법을 알고 있어요. 마음에도 똑같은 힘이 심어져 있습니다."},
+{q:"곰은 기나긴 겨울을 어떻게 보낼까요?",o:["겨울잠을 자며 쉰다","꿈속에서 봄을 기다린다","웅크린 채 힘을 모은다"],m:"곰은 겨울 내내 쉬면서 봄을 준비해요. 쉬는 것도 엄연히 살아가는 방법 중 하나입니다."},
+{q:"달맞이꽃이 꽃잎을 여는 시간은 언제일까요?",o:["달이 뜨는 밤","모두 잠든 시간","고요한 어둠 속"],m:"달맞이꽃은 밤에만 피어요. 모든 꽃이 낮에 피는 건 아니에요. 당신의 시간표가 남들과 달라도 괜찮습니다."},
+{q:"대나무는 하늘로 솟기 전, 몇 해 동안 무엇을 할까요?",o:["땅속에서 뿌리를 넓힌다","보이지 않게 자란다","조용히 힘을 모은다"],m:"모두 맞아요. 대나무는 몇 해를 땅속에서 준비한 뒤에야 솟아올라요. 눈에 안 보인다고 자라지 않는 게 아닙니다."},
+{q:"오늘 밤 반짝이는 별빛은 언제 출발한 빛일까요?",o:["아주 오래전","수백 년 전","우리가 태어나기도 전"],m:"지금 보는 별빛은 아주 오래전 출발해 이제야 도착한 빛이에요. 힘든 시간도 언젠가는 '지나온 빛'이 되어 반짝입니다."},
+{q:"당신이 잠 못 드는 지금, 지구는 무엇을 하고 있을까요?",o:["아침을 이쪽으로 옮겨 오는 중","변함없이 조용히 도는 중","해를 향해 가는 중"],m:"아침은 이미 지구 반대편에서 이쪽으로 오고 있어요. 당신은 가만히 누워만 있어도 아침에 도착합니다."},
+{q:"폭풍이 지나간 아침, 숲의 새들은?",o:["다시 나와 노래한다","깃털을 말리며 해를 쬔다","더 맑은 소리로 지저귄다"],m:"폭풍이 아무리 사나워도 새들의 노래를 영영 멈추게 하진 못해요. 당신의 아침 노래도 그대로일 거예요."},
+{q:"슬플 때 흘리는 눈물은 무엇을 해 줄까요?",o:["마음의 긴장을 씻어 준다","마음을 한결 가볍게 한다","고인 것을 흘려보내 준다"],m:"감정의 눈물에는 스트레스 물질이 함께 흘러나와요. 우는 건 약한 게 아니라 몸이 가진 오래된 지혜입니다."},
+{q:"숨을 길게 내쉬면 심장은 어떻게 될까요?",o:["차분히 느려진다","고르게 안정된다","부드러워진다"],m:"긴 날숨은 몸의 브레이크를 켜는 스위치예요. 지금 한 번, 후우— 하고 길게 내쉬어 볼까요."},
+{q:"아기를 재울 때 등을 토닥이는 이유는?",o:["심장 소리를 닮아 안심돼서","괜찮다는 신호가 되어서","사랑을 전하는 손길이라서"],m:"토닥임은 엄마 배 속에서 듣던 심장 소리를 닮았대요. 어른의 마음에도 토닥임이 필요해요. 지금 하는 게 바로 그거예요."},
+{q:"메마른 사막에 큰비가 내리면 무슨 일이 생길까요?",o:["숨어 있던 씨앗이 깨어난다","며칠 만에 꽃밭이 된다","기다림이 일제히 피어난다"],m:"수십 년을 기다린 씨앗도 비 한 번에 피어나요. 당신 안의 씨앗도 사라진 게 아니라, 때를 기다리고 있을 뿐이에요."},
+{q:"한겨울 앙상한 나뭇가지 속에는 무엇이 들어 있을까요?",o:["봄에 틔울 겨울눈","작은 새싹의 약속","다가올 봄"],m:"앙상해 보이는 가지 안에는 이미 봄의 싹이 준비되어 있어요. 겨울은 끝이 아니라 준비의 계절입니다."},
+{q:"지구가 생긴 이래, 아침이 오지 않은 밤은 며칠일까요?",o:["단 하루도 없었다","한 번도 없었다","앞으로도 없을 것이다"],m:"수십억 년 동안 단 한 번도, 아침은 밤을 잊은 적이 없어요. 오늘 밤도 예외가 아닙니다."},
+/* --- 위로의 말 고르기 (20) --- */
+{q:"오늘 하루를 지나온 나에게, 어떤 말을 건네고 싶나요?",o:["그걸로 충분해","오늘도 잘 살았어","애 많이 썼어"],m:"어느 말이든 오늘의 당신에게 꼭 맞아요. 하루를 여기까지 데려온 것, 그것만으로 이미 해낸 겁니다."},
+{q:"실수한 친구에게 당신이라면 뭐라고 말해 줄까요?",o:["그럴 수 있어","누구나 그래","괜찮아, 별일 아니야"],m:"친구에게는 이렇게 다정하잖아요. 오늘부터는 나에게도 똑같은 말을 해 주기로 해요."},
+{q:"잠이 오지 않는 밤의 나에게 들려줄 말은?",o:["억지로 안 자도 괜찮아","누워 쉬는 것만으로 충분해","잠은 오면 오는 대로"],m:"가만히 누워 쉬는 것만으로도 몸은 회복되고 있어요. '자야 한다'는 숙제를 내려놓는 순간, 잠은 오히려 가까워집니다."},
+{q:"꼬리를 무는 걱정에게 건넬 한마디는?",o:["지금은 내일의 나에게 맡길게","오늘 걱정은 여기까지","내일 아침에 다시 보자"],m:"새벽의 뇌는 걱정을 실제보다 크게 부풀려요. 내일 아침의 나는 지금보다 훨씬 유능합니다. 믿고 맡겨 보세요."},
+{q:"눈물이 나오려는 날, 나에게 허락해 줄 것은?",o:["울어도 돼","실컷 울고 개운해지기","눈물도 마음의 목욕이야"],m:"울음을 허락하는 것도 자신을 돌보는 방법이에요. 눈물은 흘러야 할 곳으로 흘러가게 두세요."},
+{q:"지쳐 있는 사람에게 정말 필요한 것은?",o:["포근한 쉼","따뜻한 말 한마디","아무것도 안 해도 되는 시간"],m:"방전된 배터리를 혼내는 사람은 없어요. 충전기에 꽂아 줄 뿐이죠. 지금 당신에게 필요한 것도 꾸중이 아니라 충전입니다."},
+{q:"\"완벽하지 않아도 ______.\" 어떤 말로 채우고 싶나요?",o:["괜찮아","충분해","사랑스러워"],m:"셋 다 진실이에요. 완벽하지 않은 채로도 충분히 사랑받고, 충분히 살아지는 게 인생입니다. 오늘의 당신도요."},
+{q:"오늘 잘한 일을 하나 꼽는다면?",o:["여기까지 온 것","포기하지 않은 것","지금 나를 돌보고 있는 것"],m:"이 새벽에 자신을 다그치는 대신 마음을 돌보고 있는 것, 그것부터가 오늘 참 잘한 일이에요."},
+{q:"불안한 마음의 정체는 사실 무엇일까요?",o:["나를 지키려는 마음","알려 주려는 신호","조금 과열된 보호 본능"],m:"불안은 나를 해치러 온 게 아니라, 지키려다 조금 과열된 경보예요. \"알려줘서 고마워, 이제 괜찮아\"라고 말해 주세요."},
+{q:"힘들었던 시절의 나에게 지금 해 주고 싶은 말은?",o:["잘 견뎌 줘서 고마워","네 덕분에 지금이 있어","수고했어, 정말"],m:"그 시절을 견딘 사람이 있었기에 오늘의 당신이 있어요. 과거의 나는 혼날 사람이 아니라 고마운 사람입니다."},
+{q:"자꾸 남과 비교하게 될 때, 붙잡을 문장은?",o:["나는 나의 속도로 간다","나의 계절은 따로 있다","나는 나의 길을 걷는다"],m:"꽃마다 피는 계절이 달라요. 남의 봄을 보며 내 겨울을 탓할 필요는 없습니다. 당신의 계절은 옵니다."},
+{q:"\"천천히 가도 ______.\" 어떤 말로 채우고 싶나요?",o:["도착한다","꽃은 핀다","길은 이어진다"],m:"속도가 달라도 방향이 있다면 반드시 닿아요. 오늘 멈춰 서서 숨을 고르는 것도 그 여정의 한 걸음입니다."},
+{q:"아무것도 못 한 것 같은 날, 사실 나는 무엇을 한 걸까요?",o:["쉬는 일을 한 것","숨을 고른 것","내일을 준비한 것"],m:"쉼은 '아무것도 아닌 시간'이 아니라 내일을 짓는 시간이에요. 밭도 한 해씩 쉬어야 힘을 되찾습니다."},
+{q:"두려운 내일에게 건넬 말은?",o:["내일의 내가 해낼 거야","막상 닥치면 길이 보여","같이 천천히 가 보자"],m:"지금까지의 당신은 걱정했던 수많은 내일들을 결국 다 살아 냈어요. 내일의 당신도 방법을 찾아낼 겁니다."},
+{q:"나를 아끼는 가장 쉬운 첫걸음은?",o:["따뜻한 말 한마디","일찍 이불 덮어 주기","맛있는 밥 한 끼"],m:"말은 마음의 온도를 바꿔요. 지금 마음속으로 한 번만 말해 보세요. \"애썼어, 정말 애썼어.\""},
+{q:"마음이 무너질 것 같을 때 붙잡을 문장은?",o:["이 감정은 지나간다","나는 감정보다 크다","비는 반드시 그친다"],m:"감정은 날씨와 같아서 아무리 거센 비도 그치게 되어 있어요. 당신은 날씨가 아니라 하늘입니다."},
+{q:"어두운 밤 한가운데의 나에게 해 줄 말은?",o:["곧 아침이 와","밤이 깊을수록 새벽이 가까워","해는 이미 오는 중이야"],m:"밤이 가장 깊다는 건 아침이 가장 가깝다는 뜻이에요. 이 새벽의 반대편엔 이미 해가 떠 있습니다."},
+{q:"오늘도 애쓴 마음에게 건넬 밤 인사는?",o:["고생 많았어","오늘도 수고했어","토닥토닥"],m:"하루의 끝 인사로 이만한 말이 없어요. 고생 많았어요, 정말로."},
+{q:"\"있는 그대로의 나도 ______.\" 어떤 말로 채우고 싶나요?",o:["소중하다","충분하다","사랑받을 만하다"],m:"셋 다 참말이에요. 더 나아지고 싶은 마음과 지금도 소중하다는 사실은 얼마든지 함께할 수 있습니다."},
+{q:"지금 이 순간, 나에게 가장 필요한 말은?",o:["괜찮아, 정말 괜찮아","잘하고 있어","혼자가 아니야"],m:"괜찮아요. 불안해도 괜찮고, 잠이 안 와도 괜찮고, 이런 밤이 있어도 괜찮아요. 당신은 괜찮아질 거예요."},
+/* --- 포근한 감각 (20) --- */
+{q:"햇볕에 갓 마른 빨래에 얼굴을 대 보면?",o:["햇볕 냄새가 난다","보송보송하다","맑은 날의 냄새가 난다"],m:"해가 지나간 자리에는 냄새가 남아요. 그 보송한 냄새를 코끝에 떠올리는 것만으로도 마음이 조금 마릅니다."},
+{q:"따뜻한 찻잔을 두 손으로 감싸 쥐면?",o:["마음까지 데워진다","어깨가 풀린다","한숨 돌리게 된다"],m:"따뜻한 것을 쥐면 마음도 너그러워진다는 연구가 있어요. 괜찮다면 지금 따뜻한 물 한 잔을 우려 보세요."},
+{q:"맨발로 보드라운 잔디를 밟으면?",o:["간지럽고 폭신하다","발끝이 시원하다","땅과 인사하는 기분이다"],m:"발바닥의 감각에 집중하는 순간, 머릿속 걱정은 잠시 자리를 비켜요. 지금 발끝의 감각은 어떤가요."},
+{q:"세수를 마치고 폭신한 수건에 얼굴을 묻으면?",o:["포근하다","보들보들하다","안기는 기분이다"],m:"몸이 기억하는 포근함은 참 많아요. 하나씩 떠올리다 보면, 몸이 먼저 그 기억 속으로 들어갑니다."},
+{q:"겨울밤 이불 속에 처음 들어간 순간은?",o:["점점 따뜻해진다","내 온기로 데워진다","이내 노곤해진다"],m:"처음엔 서늘해도 내 온기가 이불을 데워요. 시간이 걸릴 뿐, 따뜻해지는 건 정해진 일이에요. 마음도 그렇습니다."},
+{q:"어릴 적 이마를 짚어 주던 손은?",o:["따뜻했다","다정했다","안심이 됐다"],m:"누군가 나를 살펴 주던 온기는 몸이 오래 기억해요. 오늘은 당신의 손이 그 손이 되어, 이마를 한번 짚어 주세요."},
+{q:"갓 지은 밥솥을 열면 피어오르는 것은?",o:["구수한 냄새","모락모락 김","집의 냄새"],m:"밥 냄새는 '무사함'의 냄새예요. 내일 아침, 따뜻한 밥 한 그릇으로 하루를 열어 보는 건 어떨까요."},
+{q:"선선한 가을바람이 뺨에 스치면?",o:["기분 좋게 선선하다","살랑살랑 간지럽다","마음이 트인다"],m:"바람이 뺨에 닿는 감각을 떠올려 보세요. 지금 이 순간의 몸으로 돌아오는 가장 부드러운 길입니다."},
+{q:"고양이의 등을 천천히 쓰다듬으면?",o:["보들보들하다","몽실몽실하다","말랑말랑하다"],m:"부드러운 것을 쓰다듬는 상상만으로도 긴장은 조금 내려가요. 손끝의 보들보들함을 천천히 떠올려 보세요."},
+{q:"나른한 오후, 창가로 들어오는 햇살은?",o:["따뜻하고 노곤하다","꾸벅꾸벅 졸리다","고양이가 된 기분이다"],m:"햇살 드는 창가에서 꾸벅 졸던 오후를 기억하나요. 그 나른함을 지금 이불 속으로 초대해 보세요."},
+{q:"좋아하는 사람과 포옹할 때의 느낌은?",o:["안심된다","마음이 놓인다","말없이 위로가 된다"],m:"포옹은 안정 호르몬을 나오게 해요. 두 팔로 자신을 감싸 안는 '셀프 허그'도 같은 효과가 있답니다. 지금 한번 해 볼까요."},
+{q:"새로 산 이불의 감촉은?",o:["보송보송","사각사각","폭신폭신"],m:"보송한 감촉 하나가 밤의 절반을 바꿔요. 지금 덮고 있는 이불의 감촉을 손끝으로 천천히 느껴 보세요."},
+{q:"따뜻한 물로 손을 천천히 씻으면?",o:["긴장이 풀린다","마음이 녹는다","노곤해진다"],m:"손끝의 온기는 생각보다 빨리 마음에 전해져요. 정 잠이 안 오면, 따뜻한 물에 손을 잠깐 담가 보세요."},
+{q:"귤껍질을 깔 때 손끝에서 퍼지는 것은?",o:["상큼한 향","겨울의 향","기분 좋은 향"],m:"향은 기억을 여는 열쇠예요. 겨울 귤 향과 함께 떠오르는 편안한 장면 하나를 가만히 붙잡아 보세요."},
+{q:"따뜻한 코코아 위의 마시멜로는?",o:["사르르 녹는다","구름처럼 퍼진다","달콤하게 스며든다"],m:"뜨거운 것 위에서는 단단한 것도 녹아요. 굳은 마음도 온기를 만나면 그렇게 부드러워집니다."},
+{q:"겨울 길거리, 붕어빵 봉지를 품에 안으면?",o:["손난로 같다","겨울 선물 같다","마음까지 덥힌다"],m:"천 원짜리 온기가 주는 위로도 있어요. 위로는 크기가 아니라 온도로 옵니다."},
+{q:"잠들기 전 머리맡에 두고 싶은 향은?",o:["은은한 라벤더 향","포근한 비누 향","보송한 이불 향"],m:"라벤더 향은 잠을 돕는 향으로 알려져 있어요. 좋아하는 은은한 향 하나를 머리맡에 두는 것도 좋은 밤 습관입니다."},
+{q:"포근한 봄 햇살 아래서 자는 낮잠은?",o:["달콤하다","보드랍다","꿈결 같다"],m:"몸은 좋은 잠의 기억을 갖고 있어요. 그 기억을 살짝 빌려 오세요. 봄볕, 살랑바람, 무거워지는 눈꺼풀."},
+{q:"두툼하고 포근한 수면양말을 신으면?",o:["발이 따뜻해 잠이 온다","포근하게 감싸인다","겨울밤의 친구가 생긴다"],m:"발이 따뜻하면 잠들기 쉬워진다는 연구가 있어요. 머리는 시원하게, 발은 따뜻하게. 오늘 밤의 작은 처방입니다."},
+{q:"사각사각, 연필로 글씨 쓰는 소리를 들으면?",o:["마음이 차분해진다","귀가 편안해진다","시간이 느려진다"],m:"단순하고 규칙적인 소리는 마음을 가라앉혀요. 사각사각, 토닥토닥, 보글보글. 소리 하나를 골라 상상해 보세요."},
+/* --- 쉼의 지혜 (20) --- */
+{q:"지친 날 저녁, 나에게 먼저 해 주고 싶은 것은?",o:["따뜻한 물 한 잔","포근한 옷으로 갈아입기","크게 한숨 돌리기"],m:"무엇이든 좋아요. 몸에 따뜻하고 편안한 것이 닿으면 '이제 쉬어도 된다'는 신호가 켜집니다. 돌봄은 이렇게 작게 시작해요."},
+{q:"머릿속이 복잡할 때, 종이 위에 해 보면 좋은 것은?",o:["생각을 그대로 적어 보기","마음 가는 대로 낙서하기","내일 할 일 세 줄만 쓰기"],m:"머릿속에서 돌 때는 크게 느껴지던 걱정도 종이에 적으면 몇 줄이 안 돼요. 적는 순간, 뇌는 그 짐을 내려놓습니다."},
+{q:"불안하면 나도 모르게 올라가는 어깨, 어떻게 풀어 줄까요?",o:["숨 내쉬며 스르르 내리기","목을 천천히 돌리기","기지개 한 번 켜기"],m:"지금 한번 살펴보세요. 어깨가 귀에 가까워져 있진 않나요. 후— 내쉬며 어깨를 내리면 마음도 한 뼘 내려옵니다."},
+{q:"꼬리를 무는 걱정에게 어떤 마감 인사를 건넬까요?",o:["오늘은 여기까지","내일 다시 열게","걱정 가게, 영업 종료"],m:"걱정에도 영업시간이 필요해요. 문을 닫는 인사는 어떤 말이든 좋습니다. 오늘 걱정은 마감했습니다."},
+{q:"잠을 부르는 방의 조명은 어떤 모습일까요?",o:["은은하게 낮춘 불빛","작은 스탠드 하나","달빛 정도의 어둑함"],m:"어두운 빛은 몸에게 '밤이야, 쉬어도 돼'라고 알려 줘요. 화면 밝기도 지금 한 단계만 더 낮춰 볼까요."},
+{q:"몸의 긴장을 푸는 호흡, 어떻게 쉬면 좋을까요?",o:["날숨을 들숨보다 길게","넷 세며 마시고 여섯 세며 내쉬기","후— 하고 천천히 내쉬기"],m:"모두 같은 지혜예요. 들이쉬는 숨이 액셀이라면 내쉬는 숨은 브레이크. 딱 세 번만, 지금 함께 내쉬어 봐요."},
+{q:"자기 전 스마트폰 대신 곁에 두면 좋은 것은?",o:["종이책 몇 쪽","잔잔한 음악","가만히 감은 눈"],m:"자극적인 화면 대신 잔잔한 것들이 잠의 문을 열어 줘요. 재미없는 책일수록 효과가 좋다는 게 귀여운 비밀입니다."},
+{q:"마음이 조급할 때, 걸음은 어떻게 걸으면 좋을까요?",o:["일부러 천천히","쉬엄쉬엄","산책하듯 느긋하게"],m:"마음이 급할수록 몸을 늦추면, 마음이 몸을 따라와요. 몸은 마음을 다루는 가장 좋은 손잡이입니다."},
+{q:"좋은 잠을 만드는 다정한 습관은?",o:["매일 비슷한 시간에 일어나기","아침 햇빛 잠깐 쬐기","낮에 몸을 조금 움직이기"],m:"셋 다 잠의 좋은 친구들이에요. 특히 오늘 못 잔 밤은, 내일 아침 같은 시간에 일어나는 것만으로 충분히 만회됩니다."},
+{q:"우리가 하는 걱정의 대부분은 나중에 보면?",o:["거의 일어나지 않는다","별일 아니게 지나간다","내일 보면 작아져 있다"],m:"걱정을 기록해 추적한 연구에서, 대부분의 걱정은 현실이 되지 않았어요. 새벽의 걱정은 특히 부풀려져 있답니다."},
+{q:"굳은 몸을 이불 속에서 풀어 주는 방법은?",o:["기지개를 쭉 켜기","발끝을 꼼지락거리기","온몸에 힘을 줬다 스르르 빼기"],m:"무엇이든 좋아요. 몸이 풀리면 마음의 매듭도 한 칸 느슨해집니다. 지금 하나 골라 해 볼까요."},
+{q:"마음이 헛헛한 날의 저녁상에 어울리는 것은?",o:["따뜻한 국물 한 그릇","갓 지은 밥","좋아하는 반찬 하나"],m:"따뜻한 것이 넘어갈 때 몸은 '보살핌받고 있다'고 느껴요. 나를 대접하는 일을 미루지 마세요."},
+{q:"낮 동안 마음을 지켜 주는 작은 습관은?",o:["가볍게 걷기","햇볕 잠깐 쬐기","하늘 한 번 올려다보기"],m:"모두 몸에 쌓인 긴장을 풀어 주는 습관이에요. 내일 낮, 이 중 하나만 자신과 살짝 약속해 볼까요."},
+{q:"나를 돌보는 가장 기본적인 방법은?",o:["충분히 자기","거르지 않고 먹기","무리하지 않기"],m:"잠과 밥과 쉼. 화려하지 않지만 이 셋이 마음을 받치는 기둥이에요. 지금 누워 있는 것도 훌륭한 돌봄입니다."},
+{q:"무거운 마음을 누군가와 나누면?",o:["절반으로 가벼워진다","숨통이 트인다","혼자가 아니게 된다"],m:"말로 꺼내진 걱정은 크기가 줄어요. 내일, 믿을 만한 한 사람에게 오늘 밤 이야기를 살짝 꺼내 보세요."},
+{q:"완벽한 하루보다 더 소중한 것은?",o:["그럭저럭 괜찮은 하루","웃음 한 번 있던 하루","무사히 저문 하루"],m:"인생은 완벽한 며칠이 아니라 그럭저럭 괜찮은 수많은 날들로 지어져요. 오늘도 그중 하루로 충분합니다."},
+{q:"쉬는 게 어쩐지 불편할 때, 떠올리면 좋은 말은?",o:["쉼도 성장의 일부","근육도 쉴 때 자란다","쉼표가 있어야 음악이다"],m:"셋 다 참말이에요. 마음도 근육처럼 쉴 때 자랍니다. 지금 당신은 게으른 게 아니라 자라는 중이에요."},
+{q:"새벽에 깼을 때, 굳이 확인하지 않아도 되는 것은?",o:["시계","지금 시간","알람까지 남은 시간"],m:"시계를 보는 순간 '몇 시간 남았지' 계산이 시작돼요. 시간은 모르는 채로 두는 게 다시 잠드는 지름길입니다."},
+{q:"몸과 마음은 서로 어떤 사이일까요?",o:["이어져 있는 사이","서로를 돌보는 사이","한 팀"],m:"그래서 마음이 힘들 땐 몸부터 돌보면 돼요. 따뜻하게 하고, 천천히 숨 쉬고, 눕는 것. 지금 다 하고 있네요."},
+{q:"지금 이 새벽, 나에게 줄 수 있는 가장 좋은 선물은?",o:["나를 향한 너그러움","포근한 이불 한 겹","괜찮다는 말 한마디"],m:"오늘 밤 잠이 안 오는 건 당신 잘못이 아니에요. 어떤 선물이든 좋으니, 지금 하나 골라 자신에게 건네 주세요."}
+];
+
+const PER_SESSION = 20;
+const BREAK_AFTER = [7, 14];   // 7번째, 14번째 문제 뒤 숨 고르기
+const OPENER = ["🌙 좋은 답이에요. ","🌙 마음이 고른 답이 곧 정답이에요. ","🌙 그 답, 참 다정하네요. ","🌙 "];
+
+let qs = [], idx = 0, locked = false;
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+function startQuiz(){
+  qs = shuffle(BANK.slice()).slice(0, PER_SESSION);
+  idx = 0; locked = false;
+  show('quiz'); render();
+  window.scrollTo(0,0);
+}
+
+function show(id){
+  ['intro','quiz','breath','end'].forEach(s=>document.getElementById(s).classList.add('hidden'));
+  document.getElementById(id).classList.remove('hidden');
+}
+
+function render(){
+  const q = qs[idx];
+  document.getElementById('pnum').textContent = (idx+1)+" / "+PER_SESSION;
+  document.getElementById('pbar').style.width = (idx/PER_SESSION*100)+"%";
+  document.getElementById('qtext').textContent = q.q;
+  const fb = document.getElementById('fb');
+  fb.textContent = ""; fb.className = "feedback";
+  document.getElementById('nextrow').classList.add('hidden');
+  const box = document.getElementById('opts');
+  box.innerHTML = "";
+  q.o.forEach((opt,i)=>{
+    const b = document.createElement('button');
+    b.className = 'opt'; b.textContent = opt;
+    b.onclick = ()=>pick(b);
+    box.appendChild(b);
+  });
+  locked = false;
+}
+
+function pick(btn){
+  if(locked) return; locked = true;
+  btn.classList.add('chosen');
+  const fb = document.getElementById('fb');
+  fb.textContent = OPENER[Math.floor(Math.random()*OPENER.length)] + qs[idx].m;
+  fb.className = "feedback on";
+  document.getElementById('nextrow').classList.remove('hidden');
+}
+
+function next(){
+  const done = idx + 1;
+  if(done >= PER_SESSION){
+    document.getElementById('pbar').style.width = "100%";
+    show('end'); window.scrollTo(0,0); return;
+  }
+  idx++;
+  if(BREAK_AFTER.includes(done)){ show('breath'); window.scrollTo(0,0); }
+  else render();
+}
+
+function resumeQuiz(){ show('quiz'); render(); window.scrollTo(0,0); }
+</script>
+</body>
+</html>
